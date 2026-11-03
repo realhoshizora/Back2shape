@@ -1,6 +1,6 @@
 // Offline: the app shell and exercise images come from cache; Supabase calls always go to the network.
-const V = 'b2s-1';
-const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'plan.js', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png'];
+const V = 'b2s-2';
+const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'plan.js', 'pose.js', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png'];
 
 self.addEventListener('install', e => e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())));
 self.addEventListener('activate', e => e.waitUntil(

@@ -31,6 +31,16 @@ Không cần tải lên `.impeccable/`, `.claude/`, `selftest.js` hoặc các fi
 - Dữ liệu lưu trên máy trước, rồi mới đồng bộ lên bảng `public.sessions` trong dự án Supabase. Mỗi dòng là một tài khoản và một buổi tập, có bảo mật theo từng tài khoản (RLS).
 - Đăng nhập bằng email và mật khẩu. Lần đầu bấm **Tạo tài khoản**, xác nhận qua email, rồi **Đăng nhập** trên cả điện thoại lẫn máy tính.
 
+## Đếm số lần bằng camera
+
+Khi đang tập, bấm nút camera cạnh **Xong hiệp**. App dùng [MediaPipe Pose](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker) để theo dõi góc khớp và tự đếm số lần, đồng thời nhắc nếu bạn hạ người nhanh hơn 3 giây. Mọi xử lý chạy trên điện thoại, video không gửi đi đâu.
+
+- Đếm được với: hít đất (cả 3 bậc), squat, goblet squat, split squat, chùng chân lùi sau, cầu mông và cuốn tạ búa. Các bài khác vẫn đếm bằng nút +/−.
+- Đặt máy **ngang người**, cách 2–3 m, sao cho camera thấy toàn thân. Phòng cần đủ sáng.
+- Lần đầu bật, app tải khoảng 15 MB. Sau đó dữ liệu được lưu lại để dùng offline.
+- Với bài từng bên (split squat, chùng chân), app thấy cả hai chân nên cứ 2 lần cử động được tính là 1 lần cho mỗi bên.
+- Nếu đếm sai, sửa bằng nút +/−. Ngưỡng góc của từng bài nằm trong `plan.js` (`CAM_PUSH`, `CAM_SQUAT`…).
+
 ## Nhắc lịch
 
 Vào Tài khoản → Nhắc lịch tập → **Thêm vào Lịch (.ics)**. Thao tác này tạo một sự kiện lặp lại vào Thứ Hai, Tư, Sáu, có thông báo trước 10 phút.

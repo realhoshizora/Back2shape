@@ -17,6 +17,7 @@ const I = {
   check: '<path d="M5 12.5l4.5 4.5L19 7"/>',
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
   video: '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
 };
 const icon = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${I[n]}</svg>`;
 
@@ -171,8 +172,8 @@ function sess() {
       <div class="next"><img src="${img(nst.id)[0]}" alt=""><div><span>Tiếp theo · hiệp ${D.k + 1}/${EX[nk].sets}</span><b>${esc(nst.name)}</b></div></div></div></main>
       <div class="dock"><div><button class="ghost" data-act="more">+15 giây</button><button class="go" data-act="skiprest">Bỏ qua nghỉ</button></div></div>`;
   }
-  const last = lastLog(k);
-  return `${sessTop(D)}<main>${demo(k)}
+  const last = lastLog(k), cam = S.cam && st.cam;
+  return `${sessTop(D)}<main>${cam ? '<div class="demo camslot" id="camslot"></div>' : demo(k)}
     <div class="ex-name">${esc(st.name)}</div>
     <div class="ex-sub">Hiệp ${D.k + 1}/${e.sets} · mục tiêu ${repsTxt(st)}</div>
     <div class="setdots">${Array.from({ length: e.sets }, (_, i) => `<i class="${i < D.k ? 'd' : i === D.k ? 'c' : ''}"></i>`).join('')}</div>
@@ -180,8 +181,8 @@ function sess() {
       <div><span class="num" id="cur" aria-live="polite">${D.cur}</span><span class="unit">${unit(st)} đã làm${st.side ? ' (mỗi bên)' : ''}</span></div>
       <button class="step" data-act="inc" aria-label="Thêm">${icon('plus')}</button></div>
     <p class="last">${last ? `Lần trước: ${last.join(' · ')}` : 'Lần đầu tập bài này: chọn mức vừa sức, dừng khi còn 1–2 lần nữa là kiệt.'}</p>
-    <div class="links"><button data-act="skipex">Bỏ qua bài này</button><button data-act="end">Kết thúc buổi</button></div></main>
-    <div class="dock"><div><button class="go" data-act="setdone">${icon('check')}Xong hiệp ${D.k + 1}/${e.sets}</button></div></div>`;
+    <div class="links">${cam ? `<button data-act="ex" data-k="${k}">Hướng dẫn</button>` : ''}<button data-act="skipex">Bỏ qua bài này</button><button data-act="end">Kết thúc buổi</button></div></main>
+    <div class="dock"><div>${st.cam ? `<button class="ghost camtoggle" data-act="cam" aria-pressed="${!!cam}" aria-label="${cam ? 'Tắt đếm bằng camera' : 'Đếm bằng camera'}">${icon('camera')}</button>` : ''}<button class="go" data-act="setdone">${icon('check')}Xong hiệp ${D.k + 1}/${e.sets}</button></div></div>`;
 }
 
 function summaryView() {
@@ -199,6 +200,24 @@ function summaryView() {
 
 function render() {
   $('#app').innerHTML = view === 'sess' && S.draft ? sess() : view === 'summary' && summary ? summaryView() : home();
+  camSync();
+}
+
+// Camera stays open for the whole session (no re-prompt between sets) and counts only during a work set.
+let camKey = '';
+function camSync() {
+  const D = S.draft;
+  if (view !== 'sess' || !D || !S.cam || document.visibilityState === 'hidden') { Cam.stop(); camKey = ''; return; }
+  const st = D.phase === 'work' && stepOf(D.ex[D.i]);
+  if (!st?.cam) { Cam.idle(); camKey = ''; return; }
+  Cam.attach($('#camslot'));
+  const key = `${D.t0}:${D.i}:${D.k}`;
+  if (key === camKey) return;
+  camKey = key; D.cur = 0; $('#cur').textContent = 0; save();
+  Cam.start(st.cam, n => {
+    if (st.side && n % 2) return; // one-side exercises: both legs are seen, so 2 movements = 1 rep per side
+    D.cur++; $('#cur').textContent = D.cur; save();
+  });
 }
 
 // ---------- Session logic ----------
@@ -313,6 +332,7 @@ function accountSheet(msg = '', err = false) {
 function viErr(m) {
   if (/Invalid login/i.test(m)) return 'Sai email hoặc mật khẩu.';
   if (/not confirmed/i.test(m)) return 'Email chưa được xác nhận. Mở hộp thư, bấm link xác nhận, rồi đăng nhập lại.';
+  if (/signups? not allowed/i.test(m)) return 'Dự án Supabase đang tắt đăng ký. Bật "Allow new users to sign up" trong Supabase → Authentication → Sign In / Providers.';
   if (/already registered/i.test(m)) return 'Email này đã có tài khoản. Hãy bấm Đăng nhập.';
   if (/rate limit|too many/i.test(m)) return 'Thử quá nhiều lần. Đợi vài phút rồi thử lại.';
   if (/fetch|network/i.test(m)) return 'Không có mạng. Dữ liệu vẫn lưu trên máy, sẽ đồng bộ khi có mạng.';
@@ -380,6 +400,7 @@ document.addEventListener('click', e => {
     }
     case 'setdone': return setDone();
     case 'skiprest': D.phase = 'work'; save(); return render();
+    case 'cam': S.cam = !S.cam; save(); return render();
     case 'more': D.restEnd += 15000; save(); return;
     case 'skipex': D.i++; D.k = 0; if (D.i >= D.ex.length) return finish(); D.cur = prefill(D); D.phase = 'work'; save(); return render();
     case 'end':
@@ -406,6 +427,7 @@ document.addEventListener('change', e => {
   if (t.id === 'lvl') { S.lvl[t.dataset.k] = +t.value; S.lvlU = Date.now(); save(); render(); sheet.close(); }
 });
 document.addEventListener('visibilitychange', () => {
+  camSync(); // releases the camera in the background, reopens it on return
   if (document.visibilityState !== 'visible') return;
   if (S.draft) wake(true);
   sync();

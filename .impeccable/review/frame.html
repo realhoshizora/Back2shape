@@ -12,6 +12,6 @@ if (st === 'summary') {
 if (st === 'session' || st === 'rest') localStorage.setItem('b2s.v1', JSON.stringify({ draft: {
   w: 'A', slot: '2026-11-02', t0: Date.now() - 754000, ex: ['squat','push','row1','rdl','press','plank'],
   i: 1, k: 1, log: { squat: { id: 'Bodyweight_Squat', r: [14, 13, 12] }, push: { id: 'Incline_Push-Up', r: [9] } },
-  phase: st === 'rest' ? 'rest' : 'work', restEnd: Date.now() + 62000, cur: 8 } }));
+  phase: st === 'rest' ? 'rest' : 'work', restEnd: Date.now() + 62000, cur: 8 }, cam: location.search.includes('cam') }));
 document.write('<iframe src="/" width="390" height="844" style="border:0;display:block"></iframe>');
 </script>

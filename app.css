@@ -149,6 +149,16 @@ h2 { font-size: 18px; font-weight: 700; margin: 40px 0 12px; }
   * { transition: none !important; }
 }
 
+/* Camera counting */
+.camslot { background: var(--ground); }
+.cam, .cam video, .cam canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cam video, .cam canvas { object-fit: cover; transform: scaleX(-1); } /* mirror: moves like a mirror */
+.cam-msg { position: absolute; left: 10px; right: 10px; bottom: 10px; background: rgba(16, 22, 29, .85); color: var(--ink); font-size: 13px; line-height: 1.4; padding: 7px 10px; border-radius: 12px; }
+.cam-msg:empty { display: none; }
+.camtoggle { width: 60px; padding: 0; display: grid; place-items: center; flex: none; }
+.camtoggle[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.camtoggle[aria-pressed="true"]:hover { background: #fff; }
+
 .ex-name { font-size: 24px; font-weight: 800; line-height: 1.2; }
 .ex-sub { color: #c3ccd4; font-size: 14px; margin-top: 4px; }
 .setdots { display: flex; gap: 8px; margin-top: 12px; }

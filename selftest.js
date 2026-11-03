@@ -18,4 +18,15 @@ assert.equal(at('2026-11-04', done(['2026-10-30', '2026-11-02'])).streak(), 2, '
 assert.equal(at('2026-11-05', done(['2026-11-02', '2026-11-04'])).streak(), 2, 'make-up on Thursday counts for Wednesday');
 assert.equal(at('2026-11-06', done(['2026-10-30', '2026-11-04'])).streak(), 1, 'missed Monday breaks the chain');
 assert.equal(at('2026-11-04', {}).streak(), 0);
+// Camera rep counter: hysteresis bands, start state, tempo.
+const repCounter = new Function(fs.readFileSync(__dirname + '/pose.js', 'utf8') + '; return repCounter;')();
+const sim = (cfg, angles) => { let reps = 0; const tempo = []; const f = repCounter(cfg, n => reps = n, s => tempo.push(s)); angles.forEach((a, i) => f(a, i * 500)); return { reps, tempo }; };
+const push = { flex: 100, ext: 145, tempo: 3 };
+// 2 push-ups with jitter inside the band that must not count; frames are 0.5 s apart.
+let r = sim(push, [170, 140, 130, 125, 120, 110, 95, 130, 160, 135, 90, 120, 128, 150, 170]);
+assert.equal(r.reps, 2, 'two full push-ups');
+assert.deepEqual(r.tempo, [2.5, 0.5], 'lowering time measured from leaving the top');
+assert.equal(sim(push, [170, 130, 140, 125, 160, 120, 165]).reps, 0, 'half reps do not count');
+assert.equal(sim({ flex: 145, ext: 162, start: 'flex' }, [140, 150, 170, 150, 140, 165, 140]).reps, 2, 'bridge counts on the way back down');
+assert.equal(sim(push, [80, 160, 90]).reps, 0, 'starting at the bottom does not count a rep');
 console.log('selftest ok');
