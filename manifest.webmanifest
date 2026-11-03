@@ -1,0 +1,15 @@
+{
+  "name": "Back2shape",
+  "short_name": "Back2shape",
+  "description": "Lịch tập tại nhà 3 buổi/tuần với tạ đơn và hít đất.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10161d",
+  "theme_color": "#1b2530",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,53 @@
+# Back2shape
+
+Web app tập tại nhà: 3 buổi toàn thân mỗi tuần (Thứ Hai, Tư, Sáu), khoảng 45 phút, dùng một cặp tạ 5 kg, hít đất và bài tay không. App hiện bài tập theo ngày, thời gian, calo, chuỗi buổi tập, có ảnh minh họa từng động tác và đồng bộ giữa điện thoại với máy tính.
+
+## Chạy thử trên máy
+
+```bash
+python -m http.server 8737
+```
+
+Mở http://localhost:8737.
+
+## Đưa lên mạng (cần HTTPS để thêm vào màn hình chính iPhone)
+
+App là các file tĩnh, nên host nào cũng dùng được. Cách nhanh nhất:
+
+1. Vào https://app.netlify.com/drop.
+2. Kéo cả thư mục `Back2shape` vào trang đó. Bạn sẽ nhận được một link `https://….netlify.app`.
+3. Trong Supabase Dashboard → Authentication → URL Configuration, đặt **Site URL** là link đó, để link xác nhận trong email mở đúng app.
+
+Không cần tải lên `.impeccable/`, `.claude/`, `selftest.js` hoặc các file `.md`; nếu lỡ tải lên thì cũng không ảnh hưởng gì.
+
+## Thêm vào màn hình chính iPhone
+
+1. Mở link bằng **Safari**.
+2. Bấm nút Chia sẻ → **Thêm vào MH chính**.
+3. Mở app từ biểu tượng mới, vào biểu tượng người ở góc phải và đăng nhập. App trên màn hình chính có bộ nhớ riêng, tách khỏi Safari, nên cần đăng nhập lại một lần ở đây.
+
+## Đồng bộ
+
+- Dữ liệu lưu trên máy trước, rồi mới đồng bộ lên bảng `public.sessions` trong dự án Supabase. Mỗi dòng là một tài khoản và một buổi tập, có bảo mật theo từng tài khoản (RLS).
+- Đăng nhập bằng email và mật khẩu. Lần đầu bấm **Tạo tài khoản**, xác nhận qua email, rồi **Đăng nhập** trên cả điện thoại lẫn máy tính.
+
+## Nhắc lịch
+
+Vào Tài khoản → Nhắc lịch tập → **Thêm vào Lịch (.ics)**. Thao tác này tạo một sự kiện lặp lại vào Thứ Hai, Tư, Sáu, có thông báo trước 10 phút.
+
+## Kế hoạch tập và nguồn tham khảo
+
+- Lịch: tập toàn thân 3 buổi/tuần, xen kẽ buổi A và B. Mỗi bài có các bậc tăng dần, ví dụ hít đất nghiêng → hít đất chuẩn → hít đất gác chân, theo cách của [r/bodyweightfitness Recommended Routine](https://www.reddit.com/r/bodyweightfitness/wiki/kb/recommended_routine).
+- Tạ nhẹ vẫn tăng cơ nếu tập gần kiệt sức (Lasevicius và cộng sự 2022, đồng tác giả Schoenfeld). Vì vậy app dùng dải 10–20 lần, hạ chậm 3 giây, và tự lên bậc khi mọi hiệp chạm mức cao nhất.
+- Calo = 3,5 MET × cân nặng × giờ tập, theo [Compendium of Physical Activities 2024](https://pacompendium.com/conditioning-exercise), mã 02054. Đây chỉ là ước tính.
+- Lượng đạm khoảng 1,6 g/kg/ngày ([Morton 2018, BJSM](https://bjsm.bmj.com/content/52/6/376)).
+- Một số ý tưởng lấy từ [openGym](https://gitea.com/DuarteSantos/openGym): điền sẵn số liệu của lần trước, đồng hồ nghỉ giữa hiệp, theo dõi kỷ lục.
+- Ảnh minh họa: [free-exercise-db](https://github.com/yuhonas/free-exercise-db) (Unlicense), lưu trong `img/`.
+
+Muốn sửa bài tập thì sửa file `plan.js`.
+
+## Kiểm tra
+
+```bash
+node selftest.js
+```

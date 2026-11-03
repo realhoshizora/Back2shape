@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-11-03T04:52:04.052Z",
+        "reason": "Claude: unchosen decision-round sketch (Lich Bloc); not shipped, kept only as the round's spent hand"
+      }
+    ]
+  }
+}

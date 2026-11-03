@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T00:00:00Z",
+  "title": "Design System: Back2shape",
+  "extensions": {
+    "colorMeta": {
+      "line": { "role": "primary", "displayName": "Signal Orange", "canonical": "#ff5a1f", "tonalRamp": ["#3d1405", "#6b220a", "#9c320f", "#cf4415", "#ff5a1f", "#ff8456", "#ffb08f", "#ffdccd"] },
+      "line-ink": { "role": "neutral", "displayName": "Night Ink (on orange)", "canonical": "#10161d", "tonalRamp": ["#05080b", "#10161d", "#1b2530", "#2a3643", "#3d4a58", "#56636f", "#76828c", "#a2abb3"] },
+      "line-soft": { "role": "primary", "displayName": "Station Halo", "canonical": "rgba(255, 90, 31, .22)", "tonalRamp": ["rgba(255,90,31,.06)", "rgba(255,90,31,.1)", "rgba(255,90,31,.14)", "rgba(255,90,31,.18)", "rgba(255,90,31,.22)", "rgba(255,90,31,.3)", "rgba(255,90,31,.4)", "rgba(255,90,31,.5)"] },
+      "miss": { "role": "tertiary", "displayName": "Missed Coral", "canonical": "#ff8a7a", "tonalRamp": ["#3d1612", "#6b2820", "#9c3c30", "#cf5544", "#ff8a7a", "#ffa598", "#ffc3ba", "#ffe2dd"] },
+      "ok": { "role": "tertiary", "displayName": "Synced Mint", "canonical": "#6fd3a0", "tonalRamp": ["#0f2a1d", "#1b4a33", "#2a6d4b", "#3f9468", "#6fd3a0", "#94dfb8", "#b9eacf", "#ddf5e8"] },
+      "ground": { "role": "neutral", "displayName": "Enamel Night", "canonical": "#10161d", "tonalRamp": ["#05080b", "#10161d", "#1b2530", "#233040", "#3a4754", "#6b7884", "#9aa7b3", "#eef2f5"] },
+      "panel": { "role": "neutral", "displayName": "Signboard Slate", "canonical": "#1b2530", "tonalRamp": ["#05080b", "#10161d", "#1b2530", "#233040", "#3a4754", "#6b7884", "#9aa7b3", "#eef2f5"] },
+      "panel-2": { "role": "neutral", "displayName": "Raised Slate", "canonical": "#233040", "tonalRamp": ["#05080b", "#10161d", "#1b2530", "#233040", "#3a4754", "#6b7884", "#9aa7b3", "#eef2f5"] },
+      "track": { "role": "neutral", "displayName": "Rail Grey", "canonical": "#3a4754", "tonalRamp": ["#05080b", "#10161d", "#1b2530", "#233040", "#3a4754", "#6b7884", "#9aa7b3", "#eef2f5"] },
+      "ink": { "role": "neutral", "displayName": "Chalk", "canonical": "#eef2f5", "tonalRamp": ["#10161d", "#233040", "#3a4754", "#6b7884", "#9aa7b3", "#c3ccd4", "#eef2f5", "#ffffff"] },
+      "ink-soft": { "role": "neutral", "displayName": "Soft Chalk", "canonical": "#c3ccd4", "tonalRamp": ["#10161d", "#233040", "#3a4754", "#6b7884", "#9aa7b3", "#c3ccd4", "#eef2f5", "#ffffff"] },
+      "muted": { "role": "neutral", "displayName": "Fog", "canonical": "#9aa7b3", "tonalRamp": ["#10161d", "#233040", "#3a4754", "#6b7884", "#9aa7b3", "#c3ccd4", "#eef2f5", "#ffffff"] },
+      "demo-plate": { "role": "neutral", "displayName": "Demo Plate", "canonical": "#ffffff", "tonalRamp": ["#3a4754", "#6b7884", "#9aa7b3", "#c3ccd4", "#e3e7ea", "#eef2f5", "#f7f9fa", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Rep target in session (rest countdown runs at clamp(140px, 44vw, 210px)). One per screen." },
+      "display-streak": { "displayName": "Display Streak", "purpose": "Streak numeral in the top panel." },
+      "headline": { "displayName": "Headline", "purpose": "The screen's one h1 (workout name)." },
+      "title": { "displayName": "Title", "purpose": "Section h2s; primary button label weight 800." },
+      "body": { "displayName": "Body", "purpose": "Instructions and paragraphs." },
+      "numeral-meta": { "displayName": "Numeral Meta", "purpose": "Numerals in inline meta rows." },
+      "label-station": { "displayName": "Station Label", "purpose": "Day labels under week-line stations." },
+      "label": { "displayName": "Label", "purpose": "Units, sub-lines, formula text, history dates." }
+    },
+    "shadows": [
+      { "name": "station-halo", "value": "0 0 0 6px var(--line-soft)", "purpose": "Soft ring around the current station only (5px on the session track)." },
+      { "name": "sheet-lift", "value": "0 -12px 40px rgba(0, 0, 0, .45)", "purpose": "Bottom sheets over a rgba(5, 8, 12, .6) backdrop." },
+      { "name": "focus-ring", "value": "outline: 3px solid var(--line); outline-offset: 3px", "purpose": "Keyboard focus on every control." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "House ease: station transforms (.4s), button press (.2s), sheet rise (.45s)." },
+      { "name": "demo-flip", "value": "2.4s steps(1, end) infinite", "purpose": "Alternates start/end demonstration frames; replaced by side-by-side frames under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "column", "value": "560px" },
+      { "name": "sheet-centred", "value": "700px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one pinned, full-width action per screen.",
+      "html": "<button class=\"ds-go\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 4v16l13-8z\"/></svg>Bắt đầu buổi tập</button>",
+      "css": ".ds-go { width: 100%; height: 60px; border: 0; border-radius: 14px; background: #ff5a1f; color: #10161d; font: 800 18px/1 'Be Vietnam Pro', system-ui, sans-serif; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; transition: transform .2s cubic-bezier(.16,1,.3,1), filter .2s; } .ds-go svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; } .ds-go:hover { filter: brightness(1.08); } .ds-go:active { transform: scale(.98); } .ds-go:focus-visible { outline: 3px solid #ff5a1f; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action beside the primary, panel-toned.",
+      "html": "<button class=\"ds-ghost\">+15 giây</button>",
+      "css": ".ds-ghost { height: 60px; padding: 0 18px; border: 0; border-radius: 14px; background: #1b2530; color: #eef2f5; font: 600 16px/1 'Be Vietnam Pro', system-ui, sans-serif; cursor: pointer; } .ds-ghost:hover { background: #233040; } .ds-ghost:focus-visible { outline: 3px solid #ff5a1f; outline-offset: 3px; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Labelled field in sheets; orange stroke on focus.",
+      "html": "<label class=\"ds-field\">Cân nặng (kg)<input value=\"58\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; font: 400 14px/1.5 'Be Vietnam Pro', system-ui, sans-serif; color: #c3ccd4; } .ds-field input { height: 50px; border-radius: 12px; border: 1px solid #3a4754; background: #10161d; padding: 0 14px; font: inherit; font-size: 16px; color: #eef2f5; } .ds-field input:focus { outline: none; border-color: #ff5a1f; }"
+    },
+    {
+      "name": "Week Line",
+      "kind": "nav",
+      "refersTo": "week-line",
+      "description": "Seven stations: done solid ink, now orange with halo, missed dashed coral, rest small dot, upcoming hollow. Ink run ends at the last done station.",
+      "html": "<div class=\"ds-line\"><span class=\"ds-run\" style=\"width:28.57%\"></span><div class=\"ds-stn done\"><i></i><small>T2</small></div><div class=\"ds-stn rest\"><i></i><small>T3</small></div><div class=\"ds-stn done\"><i></i><small>T4</small></div><div class=\"ds-stn rest\"><i></i><small>T5</small></div><div class=\"ds-stn now\"><i></i><small>T6</small></div><div class=\"ds-stn rest\"><i></i><small>T7</small></div><div class=\"ds-stn\"><i></i><small>CN</small></div></div>",
+      "css": ".ds-line { display: grid; grid-template-columns: repeat(7, 1fr); position: relative; background: #1b2530; padding: 16px 0; } .ds-line::before, .ds-run { content: ''; position: absolute; top: 29px; height: 6px; border-radius: 3px; left: calc(100% / 14); right: calc(100% / 14); background: #3a4754; } .ds-run { background: #eef2f5; right: auto; } .ds-stn { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; } .ds-stn i { width: 32px; height: 32px; display: grid; place-items: center; } .ds-stn i::after { content: ''; width: 22px; height: 22px; border-radius: 50%; border: 4px solid #eef2f5; background: #10161d; box-sizing: border-box; } .ds-stn.done i::after { background: #eef2f5; } .ds-stn.now i::after { border-color: #ff5a1f; background: #ff5a1f; box-shadow: 0 0 0 6px rgba(255,90,31,.22); } .ds-stn.miss i::after { border-color: #ff8a7a; border-style: dashed; } .ds-stn.rest i::after { width: 10px; height: 10px; border: 0; background: #3a4754; } .ds-stn small { font: 600 13px/1 'Barlow Condensed', sans-serif; letter-spacing: .06em; color: #9aa7b3; } .ds-stn.now small { color: #ff5a1f; }"
+    },
+    {
+      "name": "Stops List",
+      "kind": "custom",
+      "refersTo": "stops",
+      "description": "Exercises as a vertical branch line with right-aligned minutes.",
+      "html": "<ol class=\"ds-stops\"><li class=\"done\"><span class=\"pin\"></span><span class=\"t\">Khởi động<span>Xoay khớp</span></span><span class=\"m\">6'</span></li><li class=\"cur\"><span class=\"pin\"></span><span class=\"t\">Hít đất<span>3 × 6–10</span></span><span class=\"m\">8'</span></li><li><span class=\"pin\"></span><span class=\"t\">Squat tạ đơn<span>3 × 10–15</span></span><span class=\"m\">9'</span></li></ol>",
+      "css": ".ds-stops { list-style: none; padding: 0; margin: 0; position: relative; background: #10161d; color: #eef2f5; font: 400 16px/1.5 'Be Vietnam Pro', system-ui, sans-serif; } .ds-stops::before { content: ''; position: absolute; left: 11px; top: 18px; bottom: 18px; width: 4px; background: #3a4754; border-radius: 2px; } .ds-stops li { display: grid; grid-template-columns: 26px 1fr auto; gap: 14px; align-items: center; padding: 10px 0; min-height: 56px; position: relative; } .ds-stops .pin { width: 26px; height: 26px; display: grid; place-items: center; } .ds-stops .pin::after { content: ''; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid #9aa7b3; background: #10161d; } .ds-stops .done .pin::after { background: #eef2f5; border-color: #eef2f5; } .ds-stops .cur .pin::after { background: #ff5a1f; border-color: #ff5a1f; } .ds-stops .t { font-weight: 600; line-height: 1.3; } .ds-stops .t span { display: block; font-weight: 400; font-size: 13px; color: #9aa7b3; } .ds-stops .m { font: 700 20px/1 'Barlow Condensed', sans-serif; color: #c3ccd4; }"
+    },
+    {
+      "name": "Rep Counter",
+      "kind": "custom",
+      "refersTo": "button-step",
+      "description": "Display numeral between two 72px step buttons.",
+      "html": "<div class=\"ds-counter\"><button class=\"ds-step\" aria-label=\"Bớt\"><svg viewBox=\"0 0 24 24\"><path d=\"M5 12h14\"/></svg></button><div><span class=\"n\">8</span><span class=\"u\">lần</span></div><button class=\"ds-step\" aria-label=\"Thêm\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 5v14M5 12h14\"/></svg></button></div>",
+      "css": ".ds-counter { display: grid; grid-template-columns: 72px 1fr 72px; align-items: center; color: #eef2f5; } .ds-counter > div { text-align: center; } .ds-counter .n { display: block; font: 700 140px/.85 'Barlow Condensed', sans-serif; font-variant-numeric: tabular-nums; } .ds-counter .u { display: block; font: 400 14px/1.2 'Be Vietnam Pro', system-ui, sans-serif; color: #9aa7b3; margin-top: 6px; } .ds-step { width: 72px; height: 72px; border: 0; border-radius: 50%; background: #1b2530; color: #eef2f5; display: grid; place-items: center; cursor: pointer; } .ds-step:hover { background: #233040; } .ds-step:focus-visible { outline: 3px solid #ff5a1f; outline-offset: 3px; } .ds-step svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }"
+    },
+    {
+      "name": "Meta Row",
+      "kind": "custom",
+      "refersTo": "numeral-meta",
+      "description": "Inline numeral+unit stats; never tiles.",
+      "html": "<div class=\"ds-meta\"><span><b>45</b>phút</span><span><b>~210</b>kcal</span><span><b>6</b>bài</span></div>",
+      "css": ".ds-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; color: #c3ccd4; font: 400 14px/1.5 'Be Vietnam Pro', system-ui, sans-serif; } .ds-meta b { font: 700 24px/1 'Barlow Condensed', sans-serif; color: #eef2f5; margin-right: 3px; }"
+    },
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "44px circular icon control with optional sync status dot.",
+      "html": "<button class=\"ds-iconbtn\" aria-label=\"Cài đặt\"><svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6\"/></svg><i></i></button>",
+      "css": ".ds-iconbtn { position: relative; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; color: #9aa7b3; display: grid; place-items: center; cursor: pointer; } .ds-iconbtn:hover { color: #eef2f5; background: #233040; } .ds-iconbtn:focus-visible { outline: 3px solid #ff5a1f; outline-offset: 3px; } .ds-iconbtn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; } .ds-iconbtn i { position: absolute; right: 7px; top: 7px; width: 10px; height: 10px; border-radius: 50%; background: #6fd3a0; border: 2px solid #1b2530; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Line",
+    "overview": "The week is a metro line on a dark enamel signboard. Training days are stations, the streak is how far the train has run, and each session's exercises are stops along a vertical branch. Everything is read the way wayfinding is read: from a distance, at a glance, by shape before colour. The world is dark only, chosen from the use scene (evening at home, phone propped on the floor 1–2 m away), not as a theme toggle.\n\nDensity is low and the scale contrast is extreme: one condensed numeral dominates each screen (the streak, the rep target, the rest countdown) and everything else steps far down to quiet UI text. Surfaces are flat enamel panels; depth comes from tone, not shadow. One line colour, signal orange, marks \"you are here\" and nothing else.\n\nThe system refuses the fitness-app card stack with progress rings: no tile grids of stats, no rings, no eyebrow labels over headings.",
+    "keyCharacteristics": [
+      "Metro-line state grammar: solid ink = done, hollow ring = upcoming, orange = now, small track dot = rest, dashed miss ring = missed.",
+      "One orange, reserved for the current station, current exercise and the primary action.",
+      "Condensed tabular numerals carry every number; a humanist sans carries every word.",
+      "Stats are inline numeral+unit meta rows, never tiles.",
+      "Flat tonal panels on a near-black blue ground; dark only."
+    ],
+    "rules": [
+      { "name": "The You-Are-Here Rule", "body": "Orange appears only on the current station, the current exercise (pin, set bar, track node) and the primary action. If nothing on screen is \"now\" or \"do this next\", nothing is orange.", "section": "colors" },
+      { "name": "The Ink Run Rule", "body": "The ink run on the week line ends at the last done station's centre. It never extends to today or beyond.", "section": "colors" },
+      { "name": "The Shape Before Colour Rule", "body": "Every station state reads without colour: filled, hollow, dashed, small dot. Colour reinforces shape; it never carries state alone.", "section": "colors" },
+      { "name": "The Numerals Are Signage Rule", "body": "Every count, duration, kcal and rep is set in Barlow Condensed with tabular figures. Words never are.", "section": "typography" },
+      { "name": "The One Giant Rule", "body": "Each screen has at most one display-scale numeral; everything else is at least 2.5× smaller.", "section": "typography" },
+      { "name": "The Enamel Rule", "body": "Panels sit flat on the ground. No card shadows, no hard offsets, no glows beyond the current-station halo.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** keep orange to the current station, the current exercise and the single primary action.",
+      "**Do** encode state by shape first: solid ink done, hollow ring upcoming, small track dot rest, dashed miss ring missed.",
+      "**Do** end the ink run at the last done station.",
+      "**Do** set every number in Barlow Condensed 700 with tabular figures and pair it with a lowercase unit in the UI face.",
+      "**Do** show stats as inline numeral+unit meta rows.",
+      "**Do** pin the primary action full-width in the bottom dock at 60px tall.",
+      "**Do** keep tap targets at 44px or more (stops 56px, step buttons 72px) for use from the floor.",
+      "**Do** draw icons as inline 24px stroke SVG (2px, round caps) in currentColor."
+    ],
+    "donts": [
+      "**Don't** add a light theme; the ground is dark by choice of use scene.",
+      "**Don't** place eyebrow or kicker labels above headings.",
+      "**Don't** build tile or card grids of stats, or progress rings.",
+      "**Don't** use orange for emphasis, highlights, celebration or decoration.",
+      "**Don't** add card shadows or hard offset shadows; depth is tonal.",
+      "**Don't** let colour alone carry a station or stop state."
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#000">
+<script>
+// Review-only capture harness: renders the app in a 390px frame, optionally mid-session.
+const st = location.hash.slice(1);
+localStorage.clear();
+if (st === 'summary') {
+  localStorage.setItem('b2s.v1', JSON.stringify({ draft: { w: 'A', slot: '2026-11-02', t0: Date.now() - 2820000, ex: ['squat','push','row1','rdl','press','plank'], i: 5, k: 2, phase: 'work', cur: 30,
+    log: { squat: { id: 'Bodyweight_Squat', r: [20, 20, 20] }, push: { id: 'Incline_Push-Up', r: [9, 8, 8] }, row1: { id: 'One-Arm_Dumbbell_Row', r: [12, 12, 11] },
+      rdl: { id: 'Stiff-Legged_Dumbbell_Deadlift', r: [15, 14, 14] }, press: { id: 'Seated_Dumbbell_Press', r: [12, 11, 10] }, plank: { id: 'Plank', r: [30, 30] } } } }));
+  addEventListener('load', () => document.querySelector('iframe').contentDocument.querySelector('[data-act=setdone]').click());
+}
+if (st === 'session' || st === 'rest') localStorage.setItem('b2s.v1', JSON.stringify({ draft: {
+  w: 'A', slot: '2026-11-02', t0: Date.now() - 754000, ex: ['squat','push','row1','rdl','press','plank'],
+  i: 1, k: 1, log: { squat: { id: 'Bodyweight_Squat', r: [14, 13, 12] }, push: { id: 'Incline_Push-Up', r: [9] } },
+  phase: st === 'rest' ? 'rest' : 'work', restEnd: Date.now() + 62000, cur: 8 } }));
+document.write('<iframe src="/" width="390" height="844" style="border:0;display:block"></iframe>');
+</script>
